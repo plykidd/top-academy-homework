@@ -149,7 +149,7 @@
 #         while self.cent > 100:
 #             self.money += 1
 #             self.cent -= 100
-# 
+#
 #         return f'Money: {self.money}, Cent: {self.cent}'
 #
 #
