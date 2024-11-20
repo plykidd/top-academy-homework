@@ -2,20 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>To Do List</title>
+    <title>Task List</title>
 </head>
 <body>
-    <table>
-        <tr>
-            <th> Item </th>
-        </tr>
-        {% for tasks in task %}
-        <tr>
-            <td> {{ task.title }}</td>
-        </tr>
-        {% empty %}
-        <h3> No items in list </h3>
+    <a href="http://127.0.0.1:8000/add/">Добавить задачу</a>
+        {% for tsk in task %}
+        	<h4>{{ name }}</h4>
+            <h4>{{ description }}</h4>
         {% endfor %}
-    </table>
+        
 </body>
 </html>
