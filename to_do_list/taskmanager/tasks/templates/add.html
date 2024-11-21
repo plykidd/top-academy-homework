@@ -1,25 +1,23 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Task List</title>
 </head>
 <body>
-    <h4><a href='task_list.html'>Назад</a></h4>
-    <form action="{% url 'add_task' %}" method="post">
+    <h4><a href='http://127.0.0.1:8000/'>Назад</a></h4>
+    <form method="POST">
         {% csrf_token %}
         <label>
-            <span>Название задачи</span>
-            <input type="text" name="name" placeholder="Напишите название">
+            <input type="text" {{ form.title }}>
+            <input type="text" {{ form.description }}>
         </label>
-        <label for='description'>
-            <span>Описание задачи </span>
-            <input type="text" name="description" placeholder="Напишите описание">
-            <input type="submit"> 
-        </label>
-
+        
+        <br><button type="submit">Добавить</button>
     </form>
+    
 </body>
 </html>
+

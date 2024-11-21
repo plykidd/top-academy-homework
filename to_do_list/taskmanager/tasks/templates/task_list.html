@@ -1,15 +1,24 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Task List</title>
 </head>
 <body>
     <a href="http://127.0.0.1:8000/add/">Добавить задачу</a>
-        {% for tsk in task %}
-        	<h4>{{ name }}</h4>
-            <h4>{{ description }}</h4>
-        {% endfor %}
-        
+    {% for tsk in task %}
+        {{ form.completed }}
+        {% if form.completed == True %}
+            <h4><strike>{{ tsk.title }}</strike></h4>
+            <h4><strike>{{ tsk.description }}</strike></h4>
+        {% else %}
+            <h4>{{ tsk.title }}</h4>
+            <h4>{{ tsk.description }}</h4>
+        {% endif %}
+{#        <h4>{{ tsk.title }}</h4>#}
+{#        <h4>{{ tsk.description }}</h4>#}
+    {% endfor %}
 </body>
 </html>
