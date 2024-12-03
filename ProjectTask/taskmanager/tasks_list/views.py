@@ -1,49 +1,40 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from .forms import TaskForm
+from django.shortcuts import render,redirect, get_object_or_404
 from .models import Task
+from .forms import TaskForm
 
 
-def tasks(request):
-    tasks = Task.objects.all()
-    return render(request, 'tasks_list/tsk_html.html', {'tasks': tasks})
 
+def index(request):
+    if request.method == 'POST':
+        form = Task(request.POST)
+        form.save()
+        return redirect('http://127.0.0.1:8000/')
+    tsk = Task.objects.all()
+    form = Task()
+    context = {
+        'tsk': tsk,
+        'form': form
+    }
+    return render(request,'tasks_list/tsk_html.html', context)
 
-def add_task(request):
+def add(request):
     if request.method == 'POST':
         form = TaskForm(request.POST)
-        if form.is_valid():
-            form.save()
-        return redirect('http://127.0.0.1:8000/')
+        form.save()
+        return redirect('index')
 
-    context = {'form': TaskForm()}
-
-    return render(request, "tasks_list/add_task.html", context)
-
-
-# def edit_task(request, id):
-#     tasks = get_object_or_404(Task, id=id)
-#     if request.method == 'POST':
-#         tasks.name = request.POST['name']
-#         tasks.description = request.POST['description']
-#         tasks.is_completed = request.POST['is_completed']
-#         tasks.created = request.POST['created']
-#         tasks.save()
-#         return redirect('tasks')
-#     return render(request, 'edit_task.html', {'tasks': tasks})
-#
-def completed_task(request, task_id):
-    todo = Task.objects.get(pk=task_id)
-    todo.complete = True
-    todo.save()
-
-    return redirect('index')
+    form = TaskForm()
+    data = {
+        'form': form
+    }
+    return render(request, "tasks_list/add_task.html", data)
 
 def edit(request, id):
-    edit_task = get_object_or_404(Task, id=id)
+    hz = get_object_or_404(Task, id=id)
     if request.method == 'GET':
-        context = {'form': TaskForm(instance=edit_task), 'id':id}
-        return render(request, 'edit.html',context)
+        context = {'form': TaskForm(instance=hz), 'id':id}
+        return render (request, 'edit.html',context)
     elif request.method == 'POST':
-        form = TaskForm(request.POST, instance=edit_task)
+        form = TaskForm(request.POST, instance=hz)
         form.save()
         return redirect('index')

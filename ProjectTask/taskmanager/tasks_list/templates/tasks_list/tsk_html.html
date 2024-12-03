@@ -2,21 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task List</title>
 </head>
-<body>
-    <a href="http://127.0.0.1:8000/add/">Добавить задачу</a>
-    {% for tsk in tasks %}
-        <h4>{{ tsk.title }}</h4>
-        <span>{{ tsk.description }}</span>
-        <a href="{% url 'edit_task' tsk.id %}" >Редактировать задачу</a>
-    <form>
+<body><br>
+    <a href ='http://127.0.0.1:8000/add'>Добавить задачу</a><br>
+    <form method="post">
         {% csrf_token %}
-        <label>
-            <input type="checkbox" disabled {% if task.completed %} checked {% endif %}>
-        </label>
+        {% for t in tsk %}
+        <a href ="{% url 'edit' t.id %}">
+            <p>{{t.title}},{{t.description}}:<input type="checkbox" disabled {% if t.completed %} checked {% endif %}/></p>
+        </a>
+        {% endfor %}
     </form>
-    {% endfor %}
 </body>
 </html>
